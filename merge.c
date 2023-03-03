@@ -8,6 +8,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <inttypes.h>
+#include <time.h>
 
 #define MIN_TASK_SIZE 1000
 
@@ -93,11 +94,11 @@ void merge(int *input_array,
           merged_array,
           merged_array_first_index);
 
-    // #pragma omp task shared(input_array, merged_array) \
-    //                  firstprivate(left_subarray_mid_index, \
-    //                                 left_subarray_last_index, right_subarray_mid_index, \
-    //                                 right_subarray_last_index, merged_array_mid_index) \
-    //                  if (doOmp)
+    #pragma omp task shared(input_array, merged_array) \
+                     firstprivate(left_subarray_mid_index, \
+                                    left_subarray_last_index, right_subarray_mid_index, \
+                                    right_subarray_last_index, merged_array_mid_index) \
+                     if (doOmp)
     merge(input_array,
           left_subarray_mid_index + 1,
           left_subarray_last_index,
